@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelli-Credit | Corporate Credit Decision Platform</title>
+    <meta name="description" content="AI-Powered Corporate Credit Decision Platform">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- App Layout -->
+    <div class="app-layout">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fa-solid fa-chart-pie logo-icon"></i>
+                    <span class="logo-text">Intelli-Credit</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item" data-target="dashboard-view">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
+                    </li>
+                    <li class="nav-item" data-target="analysis-view">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <span>Document Analysis</span>
+                    </li>
+                    <li class="nav-item" data-target="research-view">
+                        <i class="fa-solid fa-globe"></i>
+                        <span>Research Intelligence</span>
+                    </li>
+                    <li class="nav-item" data-target="risk-view">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Risk Evaluation</span>
+                        <span class="badge" id="nav-risk-badge" style="display:none;"></span>
+                    </li>
+                    <li class="nav-item" data-target="cam-view">
+                        <i class="fa-solid fa-file-signature"></i>
+                        <span>CAM Report</span>
+                    </li>
+                    <li class="nav-item" data-target="scenario-view" style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 12px; padding-top: 4px;">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>Scenario Simulator</span>
+                        <span style="font-size: 0.6rem; background: linear-gradient(135deg,#f59e0b,#ef4444); color:#fff; padding: 2px 5px; border-radius: 4px; margin-left: auto;">NEW</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar">CM</div>
+                    <div class="user-info">
+                        <span class="user-name">Credit Manager</span>
+                        <span class="user-role">Approver</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search companies, applications or documents...">
+                </div>
+                <div class="header-actions">
+                    <button class="action-btn" title="Notifications"><i class="fa-regular fa-bell"></i><span class="notification-dot"></span></button>
+                    <button class="action-btn" title="Settings"><i class="fa-solid fa-gear"></i></button>
+                </div>
+            </header>
+
+            <!-- Dynamic Views Container -->
+            <div class="views-container">
+            
+                <!-- 1. Dashboard View (Upload & Initial status) -->
+                <section id="dashboard-view" class="view active">
+                    <div class="view-header">
+                        <h1>Credit Appraisal Dashboard</h1>
+                        <p>Evaluate corporate loan applications with AI-powered insights</p>
+                    </div>
+                    
+                    <div class="dashboard-grid">
+                        <!-- New Application Card -->
+                        <div class="card upload-card wide">
+                            <h2>New Loan Application</h2>
+                            <p>Enter company details and upload required documents to begin analysis</p>
+                            
+                            <form id="new-app-form" class="app-form">
+                                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                                    <div class="form-group">
+                                        <label for="company-search">Company Name <span class="required">*</span></label>
+                                        <input type="text" id="company-search" placeholder="e.g. Apex Manufacturing Pvt Ltd" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="industry-input">Industry <span class="required">*</span></label>
+                                        <select id="industry-input" required style="width:100%;padding:12px;border:1px solid var(--border-color);border-radius:8px;font-size:1rem;background:var(--bg-surface);color:var(--text-primary);">
+                                            <option value="Manufacturing">Manufacturing</option>
+                                            <option value="Technology">Technology</option>
+                                            <option value="Real Estate">Real Estate</option>
+                                            <option value="Healthcare">Healthcare</option>
+                                            <option value="Retail">Retail</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="years-input">Years in Operation <span class="required">*</span></label>
+                                        <input type="number" id="years-input" value="5" min="1" required style="width:100%;padding:12px;border:1px solid var(--border-color);border-radius:8px;font-size:1rem;background:var(--bg-surface);color:var(--text-primary);">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="revenue-input">Annual Revenue (₹) <span class="required">*</span></label>
+                                        <input type="number" id="revenue-input" value="15000000" min="0" required style="width:100%;padding:12px;border:1px solid var(--border-color);border-radius:8px;font-size:1rem;background:var(--bg-surface);color:var(--text-primary);">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="loan-amount-input">Loan Amount Requested (₹) <span class="required">*</span></label>
+                                        <input type="number" id="loan-amount-input" value="5000000" min="100000" step="100000" required style="width:100%;padding:12px;border:1px solid var(--border-color);border-radius:8px;font-size:1rem;background:var(--bg-surface);color:var(--text-primary);">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="liabilities-input">Existing Liabilities (₹) <span class="required">*</span></label>
+                                        <input type="number" id="liabilities-input" value="4000000" min="0" required style="width:100%;padding:12px;border:1px solid var(--border-color);border-radius:8px;font-size:1rem;background:var(--bg-surface);color:var(--text-primary);">
+                                    </div>
+                                </div>
+                                
+                                <div class="upload-area" id="drop-zone">
+                                    <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                                    <h3>Drag & drop financial documents here</h3>
+                                    <p>Supported: GST Returns, ITR, Bank Statements, Audited Financials (PDF, Excel)</p>
+                                    <input type="file" id="file-input" multiple hidden>
+                                    <button type="button" class="btn btn-outline" onclick="document.getElementById('file-input').click()">Browse Files</button>
+                                </div>
+
+                                <div id="file-list" class="file-list">
+                                    <!-- Uploaded files will appear here -->
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-primary" id="btn-start-analysis" disabled>
+                                        <i class="fa-solid fa-wand-magic-sparkles"></i> Start AI Analysis
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Recent Activity/Queue -->
+                        <div class="card status-card">
+                            <h2>Recent Applications</h2>
+                            <ul class="activity-list">
+                                <li class="activity-item">
+                                    <div class="activity-icon bg-success"><i class="fa-solid fa-check"></i></div>
+                                    <div class="activity-details">
+                                        <h4>TechNova Solutions</h4>
+                                        <p>CAM Generated • Approved</p>
+                                    </div>
+                                    <span class="activity-time">2h ago</span>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-icon bg-warning"><i class="fa-solid fa-clock"></i></div>
+                                    <div class="activity-details">
+                                        <h4>Global Logistics Ltd</h4>
+                                        <p>Pending Due Diligence Notes</p>
+                                    </div>
+                                    <span class="activity-time">5h ago</span>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-icon bg-danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                    <div class="activity-details">
+                                        <h4>Pioneer Builders</h4>
+                                        <p>Rejected • High Risk Score</p>
+                                    </div>
+                                    <span class="activity-time">1d ago</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Processing Modal (Hidden by default) -->
+                    <div id="processing-overlay" class="overlay hidden">
+                        <div class="processing-modal">
+                            <div class="loader-ring"></div>
+                            <h2 id="processing-title">Analyzing Documents...</h2>
+                            <p id="processing-desc">Extracting data from GST returns and bank statements</p>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" id="processing-progress"></div>
+                            </div>
+                            <ul class="processing-steps">
+                                <li class="step active" id="step-1"><i class="fa-solid fa-circle-notch fa-spin"></i> Parsing PDFs</li>
+                                <li class="step waiting" id="step-2"><i class="fa-regular fa-circle"></i> Extracting Financials</li>
+                                <li class="step waiting" id="step-3"><i class="fa-regular fa-circle"></i> Conducting Research</li>
+                                <li class="step waiting" id="step-4"><i class="fa-regular fa-circle"></i> Calculating Risk Score</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- MORE VIEWS TO BE ADDED IN SUBSEQUENT STEPS -->
+                <!-- Document Analysis View -->
+                <section id="analysis-view" class="view">
+                   <div class="view-header">
+                        <h1>Document Analysis</h1>
+                        <p id="analysis-subtitle">Waiting for documents...</p>
+                    </div>
+                    <!-- Content placeholder -->
+                    <div class="placeholder-content">
+                        <i class="fa-solid fa-folder-open placeholder-icon"></i>
+                        <h2>No Data Yet</h2>
+                        <p>Upload documents in the Dashboard to see extracted financial metrics here.</p>
+                        <button class="btn btn-primary" onclick="window.app.switchView('dashboard-view')">Go to Dashboard</button>
+                    </div>
+                </section>
+
+                <section id="research-view" class="view">
+                    <!-- Content placeholder -->
+                </section>
+                
+                <section id="risk-view" class="view">
+                     <!-- Content placeholder -->
+                </section>
+
+                <section id="cam-view" class="view">
+                     <!-- Content placeholder -->
+                </section>
+
+                <section id="scenario-view" class="view"></section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/mockData.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

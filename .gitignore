@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venc/
+env/
+.env
+
+# Node/Frontend
+node_modules/
+dist/
+build/
+.DS_Store
+
+# Temporary files
+tmp/
+*.log
+tunnel_*.txt
+pinggy_tunnel.txt
+unified_*.txt
+*.webp
+*.png
+*.jpg
